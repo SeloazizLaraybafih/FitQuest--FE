@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { Button } from '@/components/ui/button'
@@ -16,8 +16,19 @@ import {
   CheckCircle,
 } from 'lucide-react'
 import FitnessSprite from '@/components/fitness-sprite'
+import { redirect, useRouter } from 'next/navigation'
 
 export default function FitnessHub() {
+  const router = useRouter()
+  useEffect(() => {
+    const hasVisited = sessionStorage.getItem('hasVisited')
+
+    if (!hasVisited) {
+      sessionStorage.setItem('hasVisited', 'true') // mark for this tab session
+      router.push('/login')
+    }
+  }, [router])
+
   const [currentExp] = useState(2847)
   const [maxExp] = useState(5000)
   const [coins] = useState(1250)
@@ -131,10 +142,11 @@ export default function FitnessHub() {
         {/* EXP Info */}
         <div className='text-center mb-2'>
           <p className='text-white font-semibold text-lg'>
-            {currentExp.toLocaleString()} / {maxExp.toLocaleString()} EXP
+            {currentExp.toLocaleString('en-US')} /{' '}
+            {maxExp.toLocaleString('en-US')} EXP
           </p>
           <p className='text-slate-400 text-sm'>
-            {(maxExp - currentExp).toLocaleString()} EXP to next level
+            {(maxExp - currentExp).toLocaleString('en-US')} EXP to next level
           </p>
         </div>
 
@@ -162,7 +174,7 @@ export default function FitnessHub() {
               <div>
                 <p className='text-slate-400 text-sm'>Coins</p>
                 <p className='text-white font-bold text-lg'>
-                  {coins.toLocaleString()}
+                  {coins.toLocaleString('en-US')}
                 </p>
               </div>
             </div>
@@ -398,7 +410,7 @@ export default function FitnessHub() {
             <div className='flex justify-between text-sm mb-2'>
               <span className='text-slate-400'>Total EXP Earned</span>
               <span className='text-white font-semibold'>
-                {totalExp.toLocaleString()}
+                {totalExp.toLocaleString('en-US')}
               </span>
             </div>
             <Progress value={85} className='h-2 bg-white/20' />

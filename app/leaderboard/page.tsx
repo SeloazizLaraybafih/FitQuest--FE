@@ -94,7 +94,7 @@ export default function Leaderboard() {
       case 2:
         return 'bg-gradient-to-r from-gray-400/80 to-slate-500/80 border-gray-400/80'
       case 3:
-        return 'bg-gradient-to-r from-orange-800/80 to-amber-600/80 border-amber-600/80'
+        return 'bg-gradient-to-r from-orange-800/80 to-amber-800/80 border-amber-600/80'
       default:
         return 'bg-white/10 border-white/20'
     }
